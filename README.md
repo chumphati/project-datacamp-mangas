@@ -1,5 +1,5 @@
 # Datacamp Project
-![img.png](img.png)
+
 __Fiona Hak<sup>1</sup>, Elora Vigo<sup>1</sup>, Céline Guo<sup>1</sup>, Shun Robert<sup>1</sup> et  Julien Giovanazzi<sup>2</sup>__
 <br>
 <sub>1. M2 AMI2B<br>2. M2 Agro
