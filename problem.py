@@ -36,9 +36,12 @@ def _get_data(path=".", split="train"):
     #target: take the floor of the score to get categories
     data_sel["Score"] = pd.to_numeric(data_sel["Score"], errors="coerce").apply(np.floor)
     median_score = data_sel["Score"].median()
-    data_sel["Score"].fillna(median_score, inplace=True)
+    data_sel["Score"].fillna(median_score, inplace=True) #remplacer les na par la médiane
+    data_sel["Score"] = np.maximum(data_sel["Score"] - 2, 0) #est ce que normaliser ne casse pas le score ?
+
     X = data_sel.drop(columns=["Score"]).to_numpy()
     y = data_sel["Score"].values
+
 
     return X, y
 

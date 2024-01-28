@@ -3,7 +3,9 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
 import warnings
 
 warnings.filterwarnings("ignore")
@@ -13,11 +15,18 @@ class Classifier(BaseEstimator, ClassifierMixin):
     def __init__(self):
         self.transformer = Pipeline(
             steps=[
-                ("imputer", SimpleImputer(strategy="median")),
+                ("imputer", IterativeImputer(random_state=42, max_iter=10, skip_complete=True)),
                 ("scaler", StandardScaler()),
             ]
         )
-        self.model = LogisticRegression(max_iter=500, multi_class='multinomial', solver='lbfgs')
+        self.model = RandomForestClassifier(
+            n_estimators=100,
+            max_depth=13,
+            max_leaf_nodes=110,
+            bootstrap=False,
+            random_state=5,
+            class_weight='balanced'
+        )
         self.pipe = Pipeline([
             ('transformer', self.transformer),
             ('model', self.model)
