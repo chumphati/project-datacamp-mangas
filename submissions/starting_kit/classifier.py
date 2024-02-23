@@ -1,8 +1,7 @@
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, PowerTransformer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
@@ -16,15 +15,15 @@ class Classifier(BaseEstimator, ClassifierMixin):
         self.transformer = Pipeline(
             steps=[
                 ("imputer", IterativeImputer(random_state=42, max_iter=10, skip_complete=True)),
-                ("scaler", StandardScaler()),
+                ("scaler", PowerTransformer()),
             ]
         )
         self.model = RandomForestClassifier(
-            n_estimators=100,
-            max_depth=13,
-            max_leaf_nodes=110,
+            n_estimators=300,
+            max_depth=5,
+            max_leaf_nodes=10,
             bootstrap=False,
-            random_state=5,
+            random_state=2,
             class_weight='balanced'
         )
         self.pipe = Pipeline([
