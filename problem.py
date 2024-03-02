@@ -42,7 +42,6 @@ def _get_data(path=".", split="train"):
     X = data_sel.drop(columns=["Score"]).to_numpy()
     y = data_sel["Score"].values
 
-
     return X, y
 
 

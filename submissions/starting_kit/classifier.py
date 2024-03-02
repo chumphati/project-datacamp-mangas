@@ -15,7 +15,7 @@ class Classifier(BaseEstimator, ClassifierMixin):
         self.transformer = Pipeline(
             steps=[
                 ("imputer", IterativeImputer(random_state=42, max_iter=10, skip_complete=True)),
-                ("scaler", PowerTransformer()),
+                ("scaler", StandardScaler()),
             ]
         )
         self.model = RandomForestClassifier(
